@@ -30,7 +30,7 @@ public class RegisterController {
 
         boolean result = service.registerUser(username,password);
         if(result){
-            return "redirect:/success";
+            return "success";
         }
         model.addAttribute("error", "could not register user");
 
@@ -44,6 +44,6 @@ public class RegisterController {
 
    @GetMapping("/")
     public String index(){
-        return "register";
+        return "redirect:/register";
     }
 }

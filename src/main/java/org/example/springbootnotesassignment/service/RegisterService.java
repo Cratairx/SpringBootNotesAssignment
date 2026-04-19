@@ -1,6 +1,7 @@
 package org.example.springbootnotesassignment.service;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.example.springbootnotesassignment.model.AppUser;
 import org.example.springbootnotesassignment.repository.AppUserRepository;
@@ -8,13 +9,13 @@ import org.example.springbootnotesassignment.repository.AppUserRepository;
 public class RegisterService {
     private final AppUserRepository repository;
 
-    // DONT CREATE A NEW OBJECT HERE
-   private final BCryptPasswordEncoder encoder =  new BCryptPasswordEncoder();
+    // DONT CREATE A NEW OBJECT HERE fixet var att använda sig av självast @Bean namnet.
+   private final PasswordEncoder encoder;
 
-    // AFTER BCRYPT WORKS ADD TO CONSTRUCTOR
-    public RegisterService(AppUserRepository repository) {
+    // AFTER BCRYPT WORKS ADD TO CONSTRUCTOR. och lägg in @Bean encoder variablen här.
+    public RegisterService(AppUserRepository repository, PasswordEncoder encoder) {
         this.repository = repository;
-
+        this.encoder = encoder;
     }
 
     public boolean registerUser(String username, String password) {
