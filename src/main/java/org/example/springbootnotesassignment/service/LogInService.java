@@ -19,13 +19,14 @@ public LogInService(AppUserRepository appUserRepository, PasswordEncoder encoder
         if (username == null || password == null) {
             return false;
         }
-        if (username.equals("admin") && password.equals("admin")) {
-            return true;
-        }
-        if (username.equals("user") && password.equals("user")) {
-            return true;
-        }
-        return false; // detta ska ändra tar bara bort det röda så länge
-    }
-}
+        if(appUserRepository.findByUsername(username).isPresent()){
+            return encoder.matches(password, appUserRepository.findByUsername(username)
+                    .get().getPassword());
 
+
+        }
+        return false;
+
+    }
+
+    }
