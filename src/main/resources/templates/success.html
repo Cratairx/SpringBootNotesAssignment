@@ -7,21 +7,14 @@
 
 </head>
 <body>
-<h1>Hej, <span th:text ="${username}"></span>!</h1>
-
-<a href="/register"> Här ska länk till en fin meny finnas just nu redirectas man till register igen</a>
+<h1>Hej, <span th:text = "${username}"></span>!</h1>
 <div class = "d-flex flex-column" style="width: fit-content;">
-    <button class = "mb-1"><a href="/register">Se mina notes</a></button>
-    <button class = "mb-1"><a href="/login">Deleta alla mina notes</a></button>
-    <button class = "mb-1"><a href="/login"> Deleta en specifik note</a></button>
-    <button class = "mb-1"><a href="/logout">Logga ut</a></button>
-    <p>Buttons med on click under </p>
-    <button onclick="window.location.href='/register'">Se mina notes</button>
-    <button onclick="window.location.href='/login'">Deleta alla mina notes</button>
-    <button onclick="window.location.href='/login'">Deleta en specifik note</button>
-    <button onclick="window.location.href='/logout'">Logga ut</button>
-    <p>bootstrap button primary</p>
-    <a class="btn btn-primary" href="/register">Se mina notes</a>
+    <p>Meny:</p>
+    <a class="btn btn-primary" href="/notes">Se mina notes</a>
+    <a class="btn btn-primary" href="/notes">skapa notes</a>
+    <a class="btn btn-primary" href="/deletenotes">Deleta mina notes</a>
+    <a class="btn btn-primary" href="/deletenotewithid">Delete specifik note</a>
+    <a class="btn btn-primary" href="/logout">Logga ut</a>
 
 
 </div>

@@ -47,6 +47,7 @@ public class RegisterController {
 
         boolean result = logInService.logIn(username,password);
         if(result){
+            System.out.println("username" + username);
             redirectAttributes.addFlashAttribute("username",username);
             return "redirect:/success";
         }
