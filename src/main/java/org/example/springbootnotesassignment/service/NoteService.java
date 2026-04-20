@@ -19,7 +19,8 @@ public class NoteService {
 
     }
     public void addNote(String username, String title, String content) {
-        AppUser appUser = appUserRepository.findByUsername(username).get();
+        AppUser appUser = appUserRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found: " + username));
         Note note = new Note();
         note.setTitle(title);
         note.setContent(content);
@@ -28,8 +29,9 @@ public class NoteService {
 
     }
     public List<Note> getNotesByUsername(String username) {
-        AppUser user = appUserRepository.findByUsername(username).get();
-        return noteRepository.findByUser(user);
+        AppUser appUser = appUserRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found: " + username));
+        return noteRepository.findByUser(appUser);
     }
 
 

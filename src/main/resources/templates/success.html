@@ -10,8 +10,8 @@
 <h1>Hej, <span th:text = "${username}"></span>!</h1>
 <div class = "d-flex flex-column" style="width: fit-content;">
     <p>Meny:</p>
-    <a class="btn btn-primary" href="/notes">Se mina notes</a>
-    <a class="btn btn-primary" href="/notes">skapa notes</a>
+    <a class="btn btn-primary" th:href="@{/notes(username=${username})}">Se mina notes</a>
+    <a class="btn btn-primary" th:href="@{/notes(username=${username})}">Skapa notes</a>
     <a class="btn btn-primary" href="/deletenotes">Deleta mina notes</a>
     <a class="btn btn-primary" href="/deletenotewithid">Delete specifik note</a>
     <a class="btn btn-primary" href="/logout">Logga ut</a>

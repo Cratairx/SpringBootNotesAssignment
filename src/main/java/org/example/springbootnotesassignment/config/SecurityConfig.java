@@ -26,6 +26,9 @@ public class SecurityConfig {
                         .requestMatchers("/","/register", "/success", "/login","/notes").permitAll()
                         .anyRequest().authenticated()
                 )
+
+
+
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
 

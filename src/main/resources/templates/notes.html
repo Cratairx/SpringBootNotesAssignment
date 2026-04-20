@@ -6,7 +6,8 @@
 </head>
 <body>
 <form method="post" th:action="@{/notes}">
-    <input type="hidden" name="username" th:value="${username}">
+    <input type = "hidden" name = "username" th:value="${username}"/>
+    <p>Username: <span th:text="${username}"></span></p>
     <input type="text" name="title" placeholder="Title">
     <textarea name="content" placeholder="Write your note..."></textarea>
     <button type="submit">Spara</button>
