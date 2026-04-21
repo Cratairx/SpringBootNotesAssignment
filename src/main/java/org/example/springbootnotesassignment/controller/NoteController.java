@@ -28,7 +28,8 @@ public class NoteController {
                           @RequestParam String username,
                           RedirectAttributes redirectAttributes) {
         noteService.addNote(username, title, content);
-        return "redirect:/success?username=" + username;
+        redirectAttributes.addFlashAttribute("username",username);
+        return "redirect:/success";
     }
 
 }
