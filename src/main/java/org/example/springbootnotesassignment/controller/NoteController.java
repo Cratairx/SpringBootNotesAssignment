@@ -1,6 +1,9 @@
 package org.example.springbootnotesassignment.controller;
 
+import jakarta.servlet.http.HttpSession;
+import org.example.springbootnotesassignment.model.AppUser;
 import org.example.springbootnotesassignment.model.Note;
+import org.example.springbootnotesassignment.repository.AppUserRepository;
 import org.springframework.ui.Model;
 import org.example.springbootnotesassignment.service.NoteService;
 import org.springframework.stereotype.Controller;
@@ -14,31 +17,40 @@ import java.util.List;
 
 @Controller
 public class NoteController {
+    private final AppUserRepository appUserRepository;
     NoteService noteService;
-    public NoteController(NoteService noteService) {
+    public NoteController(NoteService noteService, AppUserRepository appUserRepository) {
         this.noteService = noteService;
+        this.appUserRepository = appUserRepository;
     }
     @GetMapping("/notes")
-    public String notes(Model model, @RequestParam(required = false) String username) {
+    public String notes(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("username");
         model.addAttribute("notes", noteService.getNotesByUsername(username));
         model.addAttribute("username", username);
         return "notes";
     }
-    /*@GetMapping("/notes")
-    public List<Note> getNotesByUsername(@RequestParam(required = false) Long userId) {
-        return noteService.getNotesById(userId);
-    }*/
+
+    @GetMapping("/shownotes")
+    public String getNotesByUsername(HttpSession session, Model model) {
+        String username = (String) session.getAttribute("username");
+        System.out.println("Username from session: " + username);
+        AppUser user = appUserRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("username not found"));
+        List<Note> notes = noteService.getNotesByUser(user);
+        System.out.println("Notes " + notes);
+        model.addAttribute("notes", noteService.getNotesByUser(user));
+        model.addAttribute("username", username);
+        return "shownotes";
+    }
+
     @PostMapping("/notes")
     public String addNote(@RequestParam String title,
                           @RequestParam String content,
-                         Principal principal,
-                         // @RequestParam String username,
-                          RedirectAttributes redirectAttributes) {
-        String username = principal.getName();
+                          HttpSession session
+                         ) {
+        String username = (String) session.getAttribute("username");
         noteService.addNote(username, title, content);
-        redirectAttributes.addFlashAttribute("username",username);
         return "redirect:/success";
     }
-
-
 }

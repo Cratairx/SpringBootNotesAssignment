@@ -33,8 +33,8 @@ public class NoteService {
                 .orElseThrow(() -> new RuntimeException("User not found: " + username));
         return noteRepository.findByUser(appUser);
     }
-    public List<Note> getNotesById(Long userId) {
-        return noteRepository.findByUserId(userId);
+    public List<Note> getNotesByUser(AppUser user) {
+        return noteRepository.findByUser(user);
     }
 
 

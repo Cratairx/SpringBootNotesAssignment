@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mina anteckningar</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<p>Hej <span th:text="${username}"></span>!</p>
+
+<div th:each="note : ${notes}">
+    <h2 th:text="${note.title}"></h2>
+    <p th:text="${note.content}"></p>
+    <hr>
+
+</div>
+<div class = "d-flex flex-column" style="width: fit-content;">
+    <a class="btn btn-primary" th:href="@{/success}">Backa</a>
+</div>
+
+</body>
+</html>

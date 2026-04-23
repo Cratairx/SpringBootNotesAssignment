@@ -1,5 +1,6 @@
 package org.example.springbootnotesassignment.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.example.springbootnotesassignment.service.LogInService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.example.springbootnotesassignment.service.RegisterService;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.security.Principal;
 
 
 @Controller
@@ -40,15 +43,17 @@ public class RegisterController {
 
         return "register";
     }
-    @PostMapping("/login")
+     @PostMapping("/login")
     public String loginUser(@RequestParam String username,
                                @RequestParam String password,
+                               HttpSession session,
                                RedirectAttributes redirectAttributes){
 
         boolean result = logInService.logIn(username,password);
         if(result){
             System.out.println("username" + username);
-            redirectAttributes.addFlashAttribute("username",username);
+            session.setAttribute("username", username);
+            //redirectAttributes.addFlashAttribute("username",username);
             return "redirect:/success";
         }
         redirectAttributes.addFlashAttribute("error", "could not login, username or password is incorrect.");
@@ -57,7 +62,8 @@ public class RegisterController {
     }
 
     @GetMapping("/success")
-    public String success(){
+    public String success(HttpSession session, Model model){
+        model.addAttribute("username",session.getAttribute("username"));
         return "success";
     }
 
