@@ -28,6 +28,10 @@ public class RegisterService {
         if (hashedPassword == null || password.isBlank()) {
             return false;
         }
+        if(repository.findByUsername(username).isPresent()) {
+            return false;
+        }
+        
         AppUser user = new AppUser();
         user.setUsername(username);
 

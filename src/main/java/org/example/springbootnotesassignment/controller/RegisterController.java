@@ -26,18 +26,21 @@ public class RegisterController {
 
 
     @GetMapping("/register")
-    public String register(){
+    public String register(HttpSession session, Model model) {
+        model.addAttribute("username",session.getAttribute("username"));
         return "register";
     }
 
     @PostMapping("/register")
     public String registerUser(@RequestParam String username,
                                @RequestParam String password,
+                               HttpSession session,
                                Model model){
 
         boolean result = service.registerUser(username,password);
         if(result){
-            return "success";
+            session.setAttribute("username", username);
+            return "redirect:/success";
         }
         model.addAttribute("error", "could not register user");
 

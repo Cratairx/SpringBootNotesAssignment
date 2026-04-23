@@ -13,7 +13,7 @@
     <h2 th:text="${note.title}"></h2>
     <p th:text="${note.content}"></p>
     <a class="btn btn-primary" th:href ="@{/editnote(id=${note.id})}">Edit</a>
-    <a class="btn btn-primary" th:href ="@{/delete(id=${note.id})}">Delete</a>
+    <a class="btn btn-danger" th:href ="@{/delete(id=${note.id})}">Delete</a>
     <hr>
 
 
