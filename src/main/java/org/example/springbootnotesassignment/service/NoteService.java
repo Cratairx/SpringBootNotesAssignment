@@ -7,6 +7,7 @@ import org.example.springbootnotesassignment.repository.NoteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NoteService {
@@ -28,6 +29,18 @@ public class NoteService {
         noteRepository.save(note);
 
     }
+    public void updateNote(Long id, String title, String content) {
+        Note note = getNotesById(id);
+        note.setTitle(title);
+        note.setContent(content);
+        noteRepository.save(note);
+
+    }
+    public void deleteNote(Long id) {
+        Note note = getNotesById(id);
+        noteRepository.delete(note);
+    }
+
     public List<Note> getNotesByUsername(String username) {
         AppUser appUser = appUserRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found: " + username));
@@ -36,6 +49,11 @@ public class NoteService {
     public List<Note> getNotesByUser(AppUser user) {
         return noteRepository.findByUser(user);
     }
+    public Note getNotesById(Long id) {
+        return noteRepository.findById(id).orElseThrow(() -> new RuntimeException("Note not found: "));
+    }
+
+
 
 
 }

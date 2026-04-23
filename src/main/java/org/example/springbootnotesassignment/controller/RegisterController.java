@@ -53,7 +53,6 @@ public class RegisterController {
         if(result){
             System.out.println("username" + username);
             session.setAttribute("username", username);
-            //redirectAttributes.addFlashAttribute("username",username);
             return "redirect:/success";
         }
         redirectAttributes.addFlashAttribute("error", "could not login, username or password is incorrect.");

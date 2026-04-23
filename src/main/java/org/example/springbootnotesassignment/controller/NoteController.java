@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import org.example.springbootnotesassignment.model.AppUser;
 import org.example.springbootnotesassignment.model.Note;
 import org.example.springbootnotesassignment.repository.AppUserRepository;
+import org.example.springbootnotesassignment.repository.NoteRepository;
 import org.springframework.ui.Model;
 import org.example.springbootnotesassignment.service.NoteService;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,12 @@ import java.util.List;
 @Controller
 public class NoteController {
     private final AppUserRepository appUserRepository;
+    private final NoteRepository noteRepository;
     NoteService noteService;
-    public NoteController(NoteService noteService, AppUserRepository appUserRepository) {
+    public NoteController(NoteService noteService, AppUserRepository appUserRepository, NoteRepository noteRepository) {
         this.noteService = noteService;
         this.appUserRepository = appUserRepository;
+        this.noteRepository = noteRepository;
     }
     @GetMapping("/notes")
     public String notes(Model model, HttpSession session) {
@@ -43,7 +46,23 @@ public class NoteController {
         model.addAttribute("username", username);
         return "shownotes";
     }
+    @GetMapping("/editnote")
+    public String editNote(@RequestParam Long id, HttpSession session, Model model) {
+        System.out.println("Username from session: " + session.getAttribute("username" + session.getId()));
+        String username = (String) session.getAttribute("username");
+        System.out.println("Username from session: " + username);
+        model.addAttribute("note", noteService.getNotesById(id));
+        return "editnote";
+    }
+    @GetMapping("/delete")
+    public String deleteNote(@RequestParam Long id, HttpSession session, Model model) {
+        System.out.println("Username from session: " + session.getAttribute("username" + session.getId()));
+        String username = (String) session.getAttribute("username");
+        System.out.println("Username from session: " + username);
+      noteService.deleteNote(id);
+        return "redirect:/shownotes";
 
+    }
     @PostMapping("/notes")
     public String addNote(@RequestParam String title,
                           @RequestParam String content,
@@ -51,6 +70,20 @@ public class NoteController {
                          ) {
         String username = (String) session.getAttribute("username");
         noteService.addNote(username, title, content);
+        return "redirect:/success";
+    }
+    @PostMapping("/editnote")
+    public String editNotes(@RequestParam String title,
+                            @RequestParam String content,
+                            @RequestParam Long id
+                           ){
+                noteService.updateNote(id, title, content);
+        return "redirect:/success";
+
+    }
+    @PostMapping("/delete")
+    public String deleteNotes(@RequestParam Long id){
+        noteService.deleteNote(id);
         return "redirect:/success";
     }
 }
