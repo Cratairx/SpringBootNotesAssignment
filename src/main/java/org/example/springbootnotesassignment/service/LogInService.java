@@ -10,6 +10,7 @@ public class LogInService {
 @Autowired
 private AppUserRepository appUserRepository;
 private PasswordEncoder encoder;
+
 public LogInService(AppUserRepository appUserRepository, PasswordEncoder encoder) {
     this.appUserRepository = appUserRepository;
     this.encoder = encoder;
@@ -25,6 +26,7 @@ public LogInService(AppUserRepository appUserRepository, PasswordEncoder encoder
 
 
         }
+
         return false;
 
     }
