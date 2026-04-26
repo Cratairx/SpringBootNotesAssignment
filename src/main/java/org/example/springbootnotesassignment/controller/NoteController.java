@@ -19,12 +19,12 @@ import java.util.List;
 @Controller
 public class NoteController {
     private final AppUserRepository appUserRepository;
-    private final NoteRepository noteRepository;
+
     NoteService noteService;
-    public NoteController(NoteService noteService, AppUserRepository appUserRepository, NoteRepository noteRepository) {
+    public NoteController(NoteService noteService, AppUserRepository appUserRepository) {
         this.noteService = noteService;
         this.appUserRepository = appUserRepository;
-        this.noteRepository = noteRepository;
+
     }
     @GetMapping("/notes")
     public String notes(Model model, HttpSession session) {
@@ -54,12 +54,18 @@ public class NoteController {
         model.addAttribute("note", noteService.getNotesById(id));
         return "editnote";
     }
+   /* @GetMapping("/adminpage")
+    public String showAllNotes(Model model){
+        model.addAttribute("notes",noteService.getAllNotes());
+
+        return "adminpage";
+    }*/
     @GetMapping("/delete")
     public String deleteNote(@RequestParam Long id, HttpSession session, Model model) {
         System.out.println("Username from session: " + session.getAttribute("username" + session.getId()));
         String username = (String) session.getAttribute("username");
         System.out.println("Username from session: " + username);
-      noteService.deleteNote(id);
+        noteService.deleteNote(id);
         return "redirect:/shownotes";
 
     }
@@ -72,6 +78,12 @@ public class NoteController {
         noteService.addNote(username, title, content);
         return "redirect:/success";
     }
+    /*@PostMapping("/adminpage")
+    public String showAllNotesForAdmin(@RequestParam Long id, HttpSession session, Model model){
+        model.addAttribute("notes",noteService.getAllNotes());
+
+        return "adminpage";
+    }*/
     @PostMapping("/editnote")
     public String editNotes(@RequestParam String title,
                             @RequestParam String content,

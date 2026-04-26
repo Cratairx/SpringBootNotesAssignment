@@ -53,6 +53,11 @@ public class NoteService {
         return noteRepository.findById(id).orElseThrow(() -> new RuntimeException("Note not found: "));
     }
 
+    public List<Note> getAllNotes(){
+
+        return noteRepository.findAll();
+    }
+
 
 
 

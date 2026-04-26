@@ -19,16 +19,11 @@ import java.security.Principal;
 public class RegisterController {
 
     private final RegisterService service;
-    private final LogInService logInService;
-    private final AppUserRepository appUserRepository;
-    private String role;
 
-    public RegisterController(RegisterService service, LogInService logInService, AppUserRepository appUserRepository) {
+
+    public RegisterController(RegisterService service) {
         this.service = service;
-        this.logInService = logInService;
-        this.appUserRepository = appUserRepository;
     }
-
 
     @GetMapping("/register")
     public String register(HttpSession session, Model model) {
@@ -51,35 +46,6 @@ public class RegisterController {
 
         return "register";
     }
-    @GetMapping("/adminpage")
-    public String adminSuccess(HttpSession session, Model model){
-        model.addAttribute("username",session.getAttribute("username"));
-        return "adminpage";
-    }
-     @PostMapping("/login")
-    public String loginUser(@RequestParam String username,
-                               @RequestParam String password,
-                               HttpSession session,
-                               RedirectAttributes redirectAttributes) {
-
-         boolean result = logInService.logIn(username, password);
-         AppUser appUser = null;
-         if (result) {
-             appUser = appUserRepository.findByUsername(username).get();
-             session.setAttribute("role", appUser.getRole());
-             System.out.println("Här ska det stå admin " + appUser.getRole());
-             session.setAttribute("username", username);
-             if("ADMIN".equals(appUser.getRole())){
-                 return "redirect:/adminpage";
-             }
-             return "redirect:/success";
-         }
-
-         redirectAttributes.addFlashAttribute("error", "could not login, username or password is incorrect.");
-
-         return "login";
-     }
-
 
     @GetMapping("/success")
     public String success(HttpSession session, Model model){
@@ -87,12 +53,9 @@ public class RegisterController {
         return "success";
     }
 
-   @GetMapping("/")
+  @GetMapping("/")
     public String index(){
         return "redirect:/login";
     }
-    @GetMapping("/login")
-    public String login(){
-        return "login";
-    }
+
 }

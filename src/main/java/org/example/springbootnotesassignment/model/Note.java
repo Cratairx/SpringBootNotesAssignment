@@ -49,4 +49,6 @@ public class Note {
     public void setUser(AppUser user) {
         this.user = user;
     }
+
+
 }
