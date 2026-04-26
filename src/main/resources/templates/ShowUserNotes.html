@@ -10,15 +10,15 @@
 <p>Hej <span th:text="${username}"></span>!</p>
 <p>Detta är show all usernotes sidan ska fixas</p>
 
-    <form method="post" th:action="@{/showUserNotes}">
-        <p>Username: <span th:text="${username}"></span></p>
-        <div class = "form-group">
-            <input type="text" name="title" placeholder="Title">
-        </div>
-        <div class = "form-group">
-            <textarea name="content" placeholder="Write your note..."></textarea>
-        </div>
-        <button type="submit" class ="btn btn-primary">Save</button>
+<div th:each="note : ${notes}">
+    <h2 th:text="${note.title}"></h2>
+    <p th:text="${note.content}"></p>
+    <a class="btn btn-primary" th:href ="@{/editnote(id=${note.id})}">Edit</a>
+    <a class="btn btn-danger" th:href ="@{/delete(id=${note.id})}">Delete</a>
+    <hr>
+
+
+</div>
 
 
 

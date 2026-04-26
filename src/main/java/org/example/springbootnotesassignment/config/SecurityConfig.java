@@ -16,7 +16,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-//  .requestMatchers("/admin/").hasRole("ADMIN")
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

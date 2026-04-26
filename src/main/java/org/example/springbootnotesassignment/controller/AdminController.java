@@ -40,35 +40,36 @@ public class AdminController {
 
     @GetMapping("/adminpage")
     public String adminPage(Model model, HttpSession session){
-        //model.addAttribute("notes",noteService.getAllNotes());
-        String username = (String) session.getAttribute("username");
-        model.addAttribute("username", username);
 
-        session.setAttribute("username", username);
+        String username = (String) session.getAttribute("username");
+        String role = (String) session.getAttribute("role");
+        if (!"ADMIN".equals(role)) {
+            return "redirect:/login";
+        }
+        model.addAttribute("username", username);
+        model.addAttribute("notes",noteService.getAllNotes());
         return "adminpage";
+
+      //  session.setAttribute("username", username);
+
     }
      @PostMapping("/adminpage")
     public String adminPage(@RequestParam Long id, HttpSession session, Model model){
          String username = (String) session.getAttribute("username");
-         System.out.println("Username ska vara här: " + username);
-      //  model.addAttribute("notes",noteService.getAllNotes());
          model.addAttribute("username", username);
-        return "adminpage";
+         return "adminpage";
     }
     @GetMapping("/showUserNotes")
     public String showUserNotes(Model model, HttpSession session){
-        //model.addAttribute("notes",noteService.getAllNotes());
+
         String username = (String) session.getAttribute("username");
         model.addAttribute("username", username);
-
-        session.setAttribute("username", username);
+        model.addAttribute("notes",noteService.getAllNotes());
         return "showUserNotes";
     }
     @PostMapping("/showUserNotes")
     public String showUserNotes(@RequestParam Long id, HttpSession session, Model model){
         String username = (String) session.getAttribute("username");
-         model.addAttribute("notes",noteService.getAllNotes());
-        model.addAttribute("username", username);
         return "showUserNotes";
     }
 }
