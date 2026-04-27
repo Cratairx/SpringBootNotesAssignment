@@ -31,6 +31,7 @@ public class RegisterController {
         return "register";
     }
 
+
     @PostMapping("/register")
     public String registerUser(@RequestParam String username,
                                @RequestParam String password,
