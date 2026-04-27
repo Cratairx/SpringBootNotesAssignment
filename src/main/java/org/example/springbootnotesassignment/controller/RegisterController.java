@@ -27,7 +27,8 @@ public class RegisterController {
 
     @GetMapping("/register")
     public String register(HttpSession session, Model model) {
-        model.addAttribute("username",session.getAttribute("username"));
+                model.addAttribute("username",
+                session.getAttribute("username"));
         return "register";
     }
 

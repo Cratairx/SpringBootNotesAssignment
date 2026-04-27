@@ -23,7 +23,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/style.css").permitAll()
-                        .requestMatchers("/","/register", "/success", "/login","/notes","/shownotes","/editnote","/delete","/adminpage","/showUserNotes","/changepassword").permitAll()
+                        .requestMatchers("/","/register", "/success", "/login","/notes","/shownotes","/editnote","/delete","/adminpage","/showUserNotes","/changepassword","/adminchangepassword").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(AbstractHttpConfigurer::disable)
