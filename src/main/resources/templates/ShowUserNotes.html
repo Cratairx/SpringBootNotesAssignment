@@ -10,6 +10,7 @@
 <p>Hej <span th:text="${username}"></span>!</p>
 <p>Detta är show all usernotes sidan ska fixas</p>
 
+<form method="post" th:action="@{/adminnotes}">
 <div th:each="note : ${notes}">
     <h2 th:text="${note.title}"></h2>
     <p th:text="${note.content}"></p>
@@ -23,8 +24,9 @@
 
 
 <div class = "d-flex flex-column" style="width: fit-content;">
-    <a class="btn btn-primary" th:href="@{/success}">Backa</a>
+    <a class="btn btn-primary" th:href="@{/adminpage}">Backa</a>
 </div>
+</form>
 
 </body>
 </html>
