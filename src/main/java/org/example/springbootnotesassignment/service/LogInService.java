@@ -10,7 +10,7 @@ public class LogInService {
 
 private final AppUserRepository appUserRepository;
 private  final PasswordEncoder encoder;
-// testar ny commit bara
+
 public LogInService(AppUserRepository appUserRepository, PasswordEncoder encoder) {
     this.appUserRepository = appUserRepository;
     this.encoder = encoder;
