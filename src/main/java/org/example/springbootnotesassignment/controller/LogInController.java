@@ -57,9 +57,9 @@ public class LogInController {
                             RedirectAttributes redirectAttributes) {
 
         boolean result = logInService.logIn(username, password);
-        AppUser appUser = null;
+
         if (result) {
-            appUser = appUserRepository.findByUsername(username).get();
+            AppUser  appUser = appUserRepository.findByUsername(username).get();
             session.setAttribute("role", appUser.getRole());
             System.out.println("Här ska det stå admin " + appUser.getRole());
             session.setAttribute("username", username);

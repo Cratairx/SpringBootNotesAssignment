@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class LogInService {
 
-@Autowired
-private AppUserRepository appUserRepository;
-private PasswordEncoder encoder;
+
+private final AppUserRepository appUserRepository;
+private  final PasswordEncoder encoder;
 
 public LogInService(AppUserRepository appUserRepository, PasswordEncoder encoder) {
     this.appUserRepository = appUserRepository;
