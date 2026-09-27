@@ -83,6 +83,7 @@ public class AdminController {
         model.addAttribute("username", username);
         return "adminnotes";
     }
+    // sdasdasd asd
     @PostMapping("/adminnotes")
     public String addNote(@RequestParam String title,
                           @RequestParam String content,
@@ -103,6 +104,7 @@ public class AdminController {
         System.out.println("changed password reached");
         String username = session.getAttribute("username").toString();
         AppUser appUser = appUserRepository.findByUsername(username).get();
+
         oldPassword = oldPassword.trim();
         newPassword = newPassword.trim();
         if(passwordEncoder.matches(oldPassword,appUser.getPassword())){
