@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>LogIn</title>
@@ -7,20 +7,23 @@
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-<h1> Logga in användare</h1>
-<p th:if="${error}" th:text ="${error}" style = "color : red"></p>
-<form method ="post" action ="/login">
-    <div class = "form-group">
-        <label for="username"   > Användarnamn</label>
-        <input type = "text" id = "username" name ="username">
-    </div>
-    <div class = "form-group">
-        <label for="password">Lösenord </label>
-        <input type = "text" id = "password" name ="password">
-    </div>
-    <button type ="Submit" class = "btn btn-primary" >Log in </button>
-    <a href="/register" class = "btn btn-primary">Register</a>
+<h1>Logga in användare</h1>
+<p th:if="${error}" th:text="${error}" style="color: red"></p>
 
+<form method="post" action="/login">
+    <div class="form-group">
+        <label for="username">Användarnamn</label>
+        <input type="text" id="username" name="username">
+    </div>
+    <div class="form-group">
+        <label for="password">Lösenord</label>
+        <input type="password" id="password" name="password">
+    </div>
+    <button type="submit" class="btn btn-primary">Log in</button>
+    <a href="/register" class="btn btn-primary">Register</a>
 </form>
+
+<hr>
+<a href="/oauth2/authorization/azure" class="btn btn-outline-light mt-2">Logga in med Microsoft</a>
 </body>
 </html>
